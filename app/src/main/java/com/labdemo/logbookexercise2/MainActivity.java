@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     Button add_url_image_btn;
     TextInputLayout input_url_image;
     int currentImage = 0;
-    int countImageItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
         imageList.add("https://huyhoangblog.com/wp-content/uploads/2021/09/avatar-cap-amine-nam-ngau.jpg");
         imageList.add("https://huyhoangblog.com/wp-content/uploads/2021/09/avatar-cap-amine-nu-ngau-1.jpg");
 
-        countImageItem = imageList.size();
-
-
         view_image_item = findViewById(R.id.imageViewItem);
         getImageItem(currentImage);
         input_url_image = findViewById(R.id.inputUrlImage);
@@ -53,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         backward_btn.setOnClickListener(this::renderImageWhenOnclick);
         forward_btn.setOnClickListener(this::renderImageWhenOnclick);
+        input_url_image.getEditText().setText("https://static.tuoitre.vn/tto/i/s626/2017/03/21/2-1-1490080249.jpg");
 
         add_url_image_btn = findViewById(R.id.buttonAddUrl);
         add_url_image_btn.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please enter Image URL !!!", Toast.LENGTH_SHORT).show();
                 } else {
                     imageList.add(imageURl);
-//                    Glide.with(MainActivity.this).load(imageURl).into(view_image_item);
                     input_url_image.getEditText().setText("");
                 }
             }
@@ -74,12 +70,12 @@ public class MainActivity extends AppCompatActivity {
     private void renderImageWhenOnclick(View view) {
         if (view == forward_btn) {
             currentImage++;
-            if (currentImage == countImageItem) {
+            if (currentImage == imageList.size()) {
                 currentImage = 0;
             }
         } else {
             if (currentImage == 0) {
-                currentImage = countImageItem;
+                currentImage = imageList.size();
             }
             currentImage--;
         }
